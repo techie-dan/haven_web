@@ -37,7 +37,7 @@ export const products: Product[] = [
       "Thrown on a kick wheel from iron-rich river clay, then left unglazed so the surface keeps the potter's fingerprint. The oxidised interior is sealed with a food-safe wash, making it as useful for branches as it is for serving.",
     artisanNote: "Made in Kyoto",
     badge: "BEST SELLER",
-    priceCents: 12000,
+    priceCents: 4500000,
     imageUrl: shot("1610701596007-11502861dcfa"),
     rating: 4.6,
     reviewCount: 41,
@@ -53,7 +53,7 @@ export const products: Product[] = [
     description:
       "A trio of fluted ceramic rings diffuses the bulb into a soft, downward glow — the Japanese idea of komorebi, light filtering through leaves. Each shade is slip-cast then hand-finished, so no two flutes read alike.",
     artisanNote: "Assembled in Lisbon",
-    priceCents: 21000,
+    priceCents: 7800000,
     imageUrl: shot("1513506003901-1e6a229e2d15"),
     rating: 4.4,
     reviewCount: 18,
@@ -69,7 +69,7 @@ export const products: Product[] = [
     description:
       "One solid block of European white oak, cut with a hand-guided saw and finished with hardwax oil. Sits at counter height — equally at home as a side table, a step, or a plinth for a heavy vase.",
     artisanNote: "FSC Certified · Sustainably Sourced",
-    priceCents: 28500,
+    priceCents: 11000000,
     imageUrl: shot("1503602642458-232111445657"),
     rating: 4.8,
     reviewCount: 63,
@@ -85,8 +85,8 @@ export const products: Product[] = [
     description:
       "Pressed by hand into a plaster mould, never trimmed square. The volcanic grog in the body shows through the matte glaze as pale flint speckle, so every platter carries a slightly different landscape.",
     artisanNote: "Food Safe · Oven Safe",
-    priceCents: 9500,
-    compareAtCents: 12000,
+    priceCents: 3800000,
+    compareAtCents: 4800000,
     imageUrl: shot("1578500494198-246f612d3b3d"),
     rating: 4.8,
     reviewCount: 27,
@@ -102,7 +102,7 @@ export const products: Product[] = [
     description:
       "European flax woven on shuttle looms, then stone-washed twice for a lived-in hand. The covers unzip for cleaning and soften further with every wash — the insert is recycled down, baffled so it stays plump.",
     artisanNote: "Set of Two",
-    priceCents: 11500,
+    priceCents: 4200000,
     imageUrl: shot("1584100936595-c0654b55a2e2"),
     rating: 4.9,
     reviewCount: 88,
@@ -118,7 +118,7 @@ export const products: Product[] = [
     description:
       "Sand-cast in a foundry that has been pouring bronze since 1904, then oxidised to a deep umber. Deliberately heavy — 1.4kg — so a taper stands dead straight and the piece reads as sculpture when empty.",
     artisanNote: "1.4kg · Solid Bronze",
-    priceCents: 7500,
+    priceCents: 2800000,
     imageUrl: shot("1524758631624-e2822e304c36"),
     rating: 4.5,
     reviewCount: 34,
@@ -134,7 +134,7 @@ export const products: Product[] = [
     description:
       "A full ceremonial set: a wide-bellied matcha bowl in matte celadon, a 100-prong chasen cut from a single bamboo culm, and a hand-carved scoop. The bowl's low centre of gravity makes a proper froth easy to build.",
     artisanNote: "Uji Strain Bamboo",
-    priceCents: 8800,
+    priceCents: 3200000,
     imageUrl: shot("1515823064-d6e0c04616a7"),
     rating: 4.7,
     reviewCount: 52,
@@ -151,7 +151,7 @@ export const products: Product[] = [
       "Wrapped in a dense New Zealand wool bouclé that hides a high-resilience foam core. The shell curves to shoulder height for a genuine reading slump; the legs are turned from solid walnut and oiled by hand.",
     artisanNote: "White Glove Available",
     badge: "RESERVE",
-    priceCents: 79000,
+    priceCents: 28500000,
     imageUrl: shot("1567538096630-e0c55bd6374c"),
     rating: 4.9,
     reviewCount: 12,
@@ -163,24 +163,24 @@ export const products: Product[] = [
 export const deliveryOptions: DeliveryOption[] = [
   {
     key: "standard_ground",
-    name: "Standard Insured Ground",
-    blurb: "3–5 business days · Fully insured against transit damage",
-    priceCents: 1800,
-    freeOverCents: 15000,
+    name: "Standard Insured Delivery",
+    blurb: "3–5 business days · Nationwide insured courier",
+    priceCents: 350000,
+    freeOverCents: 15000000,
   },
   {
     key: "white_glove",
     name: "White Glove Fragile Care & Rapid Dispatch",
     blurb: "2 business days · Double-boxed ceramic casing + signature handover",
-    priceCents: 1800,
+    priceCents: 750000,
     recommended: true,
   },
   {
     key: "eco_courier",
-    name: "Eco-Courier Same Day Dispatch",
-    blurb: "NYC Metro Only · Delivered via electric van today before 8:00 PM",
-    priceCents: 2500,
+    name: "Lagos Same-Day Dispatch",
+    blurb: "Lagos & Ogun only · Delivered today before 8:00 PM",
+    priceCents: 500000,
   },
 ];
 
-export const FREE_SHIPPING_THRESHOLD_CENTS = 15000;
+export const FREE_SHIPPING_THRESHOLD_CENTS = 15000000;

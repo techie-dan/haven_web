@@ -1,4 +1,5 @@
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+import { supabaseUrl } from "@/lib/config";
 
 /**
  * Service-role client. **Server only.**
@@ -10,7 +11,7 @@ import { createClient as createSupabaseClient } from "@supabase/supabase-js";
  * already validated the payload with zod.
  */
 export function createAdminClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const url = supabaseUrl;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !serviceRoleKey) {

@@ -25,7 +25,7 @@ const COLUMNS = [
   },
 ];
 
-const PAYMENT_MARKS = ["Visa", "Mastercard", "Amex", "Apple Pay"];
+const PAYMENT_MARKS = ["Verve", "Mastercard", "Visa", "Paystack"];
 
 export function SiteFooter() {
   return (
@@ -40,14 +40,30 @@ export function SiteFooter() {
             </div>
             <p className="mt-5 max-w-sm font-display text-[17px] leading-relaxed text-ink-soft">
               Mindfully produced architectural furnishings, unglazed stoneware,
-              and organic linen textiles. Crafted in harmony with
-              multi-generational master workshops across Scandinavia and Japan.
+              and organic linen textiles. Designed in Lagos and crafted with
+              master workshops across Nigeria and beyond.
             </p>
+            <address className="mt-6 space-y-1 text-[12.5px] not-italic leading-relaxed text-muted">
+              <span className="block">12B Admiralty Way, Lekki Phase 1</span>
+              <span className="block">Lagos, Nigeria</span>
+              <a
+                href="tel:+2348031234567"
+                className="block transition-colors hover:text-terracotta"
+              >
+                +234 803 123 4567
+              </a>
+              <a
+                href="mailto:studio@havenstudio.ng"
+                className="block transition-colors hover:text-terracotta"
+              >
+                studio@havenstudio.ng
+              </a>
+            </address>
             <p className="eyebrow mt-6 text-muted">
               Provenance &amp; Stewardship
             </p>
             <p className="mt-2 max-w-sm text-[12.5px] leading-relaxed text-muted">
-              100% certified raw materials, zero plastic in parcel shipping, and
+              Natural certified raw materials, recyclable parcel shipping, and
               lifetime structural restoration guarantees.
             </p>
           </div>

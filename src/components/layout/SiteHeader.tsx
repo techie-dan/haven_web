@@ -197,13 +197,22 @@ export function SiteHeader() {
                 )}
               </>
             ) : (
-              <Link
-                href="/login"
-                className="p-2 text-ink-soft transition-colors hover:text-terracotta"
-                aria-label="Sign in"
-              >
-                <User size={18} />
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link
+                  href="/signup"
+                  className="px-3 py-1.5 text-[13px] text-ink-soft transition-colors hover:text-terracotta"
+                  aria-label="Sign up"
+                >
+                  Sign up
+                </Link>
+                <Link
+                  href="/login"
+                  className="p-2 text-ink-soft transition-colors hover:text-terracotta"
+                  aria-label="Sign in"
+                >
+                  <User size={18} />
+                </Link>
+              </div>
             )}
           </div>
 
@@ -248,13 +257,22 @@ export function SiteHeader() {
             </Link>
           ))}
           {!user && (
-            <Link
-              href="/login"
-              onClick={dismiss}
-              className="eyebrow block pt-3.5 text-terracotta"
-            >
-              Sign in with Google
-            </Link>
+            <div className="flex flex-col gap-2 pt-3.5 border-t border-line">
+              <Link
+                href="/signup"
+                onClick={dismiss}
+                className="eyebrow block text-ink-soft"
+              >
+                Create an account
+              </Link>
+              <Link
+                href="/login"
+                onClick={dismiss}
+                className="eyebrow block text-terracotta"
+              >
+                Sign in with Google
+              </Link>
+            </div>
           )}
         </nav>
       )}

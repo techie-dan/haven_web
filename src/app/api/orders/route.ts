@@ -16,6 +16,21 @@ import type { CartLine } from "@/lib/types";
 export const runtime = "nodejs";
 
 /**
+ * The mobile app calls this endpoint from a native fetch and, when run through
+ * Expo's web target, from a localhost origin. Bearer auth is used instead of
+ * cookies there, so allow both.
+ */
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
+export async function OPTIONS() {
+  return new NextResponse(null, { status: 204, headers: CORS_HEADERS });
+}
+
+/**
  * Places an order.
  *
  * Trust model: the client sends product ids, quantities and an address — never
@@ -36,7 +51,10 @@ export async function POST(request: Request) {
   try {
     raw = await request.json();
   } catch {
-    return NextResponse.json({ error: "Malformed request." }, { status: 400 });
+    return NextResponse.json(
+      { error: "Malformed request." },
+      { status: 400, headers: CORS_HEADERS },
+    );
   }
 
   const parsed = placeOrderSchema.safeParse(raw);
@@ -46,7 +64,7 @@ export async function POST(request: Request) {
         error: "Please check the highlighted fields.",
         fieldErrors: fieldErrorsFrom(parsed.error),
       },
-      { status: 422 },
+      { status: 422, headers: CORS_HEADERS },
     );
   }
 
@@ -66,14 +84,14 @@ export async function POST(request: Request) {
           error:
             "One of the pieces in your basket is no longer available. Please review your basket and try again.",
         },
-        { status: 409 },
+        { status: 409, headers: CORS_HEADERS },
       );
     }
 
     if (!product.inStock) {
       return NextResponse.json(
         { error: `"${product.name}" has sold out. Please remove it to continue.` },
-        { status: 409 },
+        { status: 409, headers: CORS_HEADERS },
       );
     }
 
@@ -109,12 +127,16 @@ export async function POST(request: Request) {
   let persisted = false;
   let userId: string | null = null;
 
-  // Link the order to the signed-in customer, if there is one.
+  // Link the order to the signed-in customer, if there is one. The website
+  // authenticates with cookies; the mobile app has no cookie jar and sends its
+  // Supabase access token as a bearer header, so accept either.
   try {
     const supabase = await createClient();
+    const authHeader = request.headers.get("authorization");
+    const bearer = authHeader?.startsWith("Bearer ") ? authHeader.slice(7) : null;
     const {
       data: { user },
-    } = await supabase.auth.getUser();
+    } = bearer ? await supabase.auth.getUser(bearer) : await supabase.auth.getUser();
     userId = user?.id ?? null;
   } catch {
     // Supabase unconfigured or unreachable — proceed as a guest order.
@@ -303,6 +325,6 @@ export async function POST(request: Request) {
       emailSent,
       deliveryName: findDeliveryOption(delivery).name,
     },
-    { status: 201 },
+    { status: 201, headers: CORS_HEADERS },
   );
 }

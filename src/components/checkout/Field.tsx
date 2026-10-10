@@ -36,6 +36,49 @@ export function Field({
   );
 }
 
+/** Labelled native select with the same underline treatment as `Field`. */
+export function Select({
+  label,
+  hint,
+  error,
+  options,
+  className,
+  ...props
+}: React.SelectHTMLAttributes<HTMLSelectElement> & {
+  label: string;
+  hint?: string;
+  error?: string;
+  options: readonly string[];
+}) {
+  return (
+    <label className={cn("block", className)}>
+      <span className="eyebrow flex items-center justify-between text-ink-soft">
+        {label}
+        {hint && <span className="normal-case tracking-normal text-muted">{hint}</span>}
+      </span>
+      <select
+        {...props}
+        aria-invalid={Boolean(error)}
+        className={cn(
+          "mt-2 w-full appearance-none border-b bg-transparent pb-2 text-[13.5px] text-ink",
+          "focus:outline-none transition-colors focus:border-ink",
+          error ? "border-terracotta" : "border-line-strong",
+        )}
+      >
+        <option value="" disabled>
+          Select…
+        </option>
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+      {error && <span className="mt-1.5 block text-[11px] text-terracotta">{error}</span>}
+    </label>
+  );
+}
+
 /** Checkbox row with a serif-free label and optional marker beneath. */
 export function CheckRow({
   checked,

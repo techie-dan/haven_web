@@ -19,7 +19,7 @@ export default async function HomePage() {
       <CollectionMasthead
         series="Artisanal Release"
         title="Ceramics & Living Essentials"
-        blurb="Sculptural forms crafted by master potters using wild stoneware clay, finished with natural mineral glazes. Each piece is unique, kiln-tempered in Kyoto and rural Småland."
+        blurb="Sculptural forms curated in Lagos for Nigerian homes — wild stoneware clay, natural mineral glazes, and hand-finished pieces from partner workshops at home and abroad."
         breadcrumb={[
           { label: "Home", href: "/" },
           { label: "Living", href: "/collections/all" },

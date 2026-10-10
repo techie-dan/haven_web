@@ -47,7 +47,7 @@ insert into public.products (
     'Thrown on a kick wheel from iron-rich river clay, then left unglazed so the surface keeps the potter''s fingerprint. The oxidised interior is sealed with a food-safe wash, making it as useful for branches as it is for serving.',
     'Made in Kyoto',
     'BEST SELLER',
-    12000, null,
+    4500000, null,
     'https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=900&q=80',
     4.6, 41, true, true, 0
   ),
@@ -61,7 +61,7 @@ insert into public.products (
     'A trio of fluted ceramic rings diffuses the bulb into a soft, downward glow — the Japanese idea of komorebi, light filtering through leaves. Each shade is slip-cast then hand-finished, so no two flutes read alike.',
     'Assembled in Lisbon',
     null,
-    21000, null,
+    7800000, null,
     'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=900&q=80',
     4.4, 18, true, true, 1
   ),
@@ -75,7 +75,7 @@ insert into public.products (
     'One solid block of European white oak, cut with a hand-guided saw and finished with hardwax oil. Sits at counter height — equally at home as a side table, a step, or a plinth for a heavy vase.',
     'FSC Certified · Sustainably Sourced',
     null,
-    28500, null,
+    11000000, null,
     'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=900&q=80',
     4.8, 63, true, true, 2
   ),
@@ -89,7 +89,7 @@ insert into public.products (
     'Pressed by hand into a plaster mould, never trimmed square. The volcanic grog in the body shows through the matte glaze as pale flint speckle, so every platter carries a slightly different landscape.',
     'Food Safe · Oven Safe',
     null,
-    9500, 12000,
+    3800000, 4800000,
     'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?auto=format&fit=crop&w=900&q=80',
     4.8, 27, true, true, 3
   ),
@@ -103,7 +103,7 @@ insert into public.products (
     'European flax woven on shuttle looms, then stone-washed twice for a lived-in hand. The covers unzip for cleaning and soften further with every wash — the insert is recycled down, baffled so it stays plump.',
     'Set of Two',
     null,
-    11500, null,
+    4200000, null,
     'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=900&q=80',
     4.9, 88, true, true, 4
   ),
@@ -117,7 +117,7 @@ insert into public.products (
     'Sand-cast in a foundry that has been pouring bronze since 1904, then oxidised to a deep umber. Deliberately heavy — 1.4kg — so a taper stands dead straight and the piece reads as sculpture when empty.',
     '1.4kg · Solid Bronze',
     null,
-    7500, null,
+    2800000, null,
     'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=80',
     4.5, 34, true, true, 5
   ),
@@ -131,7 +131,7 @@ insert into public.products (
     'A full ceremonial set: a wide-bellied matcha bowl in matte celadon, a 100-prong chasen cut from a single bamboo culm, and a hand-carved scoop. The bowl''s low centre of gravity makes a proper froth easy to build.',
     'Uji Strain Bamboo',
     null,
-    8800, null,
+    3200000, null,
     'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=900&q=80',
     4.7, 52, true, true, 6
   ),
@@ -145,7 +145,7 @@ insert into public.products (
     'Wrapped in a dense New Zealand wool bouclé that hides a high-resilience foam core. The shell curves to shoulder height for a genuine reading slump; the legs are turned from solid walnut and oiled by hand.',
     'White Glove Available',
     'RESERVE',
-    79000, null,
+    28500000, null,
     'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=900&q=80',
     4.9, 12, true, true, 7
   )

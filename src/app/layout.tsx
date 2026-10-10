@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s · Haven Studio & Living",
   },
   description:
-    "Mindfully produced architectural furnishings, unglazed stoneware, and organic linen textiles. Hand-crafted in partnership with multi-generational master artisans across Scandinavia and Japan.",
+    "Nigerian interior design studio and storefront for architectural furnishings, unglazed stoneware, and organic linen textiles. Delivered nationwide from Lagos.",
   keywords: [
     "artisan homeware",
     "stoneware",

@@ -20,7 +20,8 @@ import { cn } from "@/lib/cn";
 import { computeTotals, formatPrice } from "@/lib/pricing";
 import { useCart } from "@/components/cart/CartProvider";
 import { useAuth } from "@/components/auth/AuthProvider";
-import { CheckoutSection, CheckRow, Field } from "@/components/checkout/Field";
+import { CheckoutSection, CheckRow, Field, Select } from "@/components/checkout/Field";
+import { DEFAULT_COUNTRY, NIGERIAN_STATES } from "@/lib/nigeria";
 import { CardBrandMarks, ExpressCheckout } from "@/components/checkout/ExpressCheckout";
 import { OrderSummary } from "@/components/checkout/OrderSummary";
 
@@ -35,7 +36,7 @@ const EMPTY_ADDRESS: ShippingAddress = {
   city: "",
   state: "",
   postalCode: "",
-  country: "United States",
+  country: DEFAULT_COUNTRY,
 };
 
 export function CheckoutClient() {
@@ -78,7 +79,7 @@ export function CheckoutClient() {
       city: profile?.city ?? "",
       state: profile?.state ?? "",
       postalCode: profile?.postal_code ?? "",
-      country: profile?.country ?? "United States",
+      country: profile?.country ?? DEFAULT_COUNTRY,
     });
     // Only collapse the contact card when the saved address is complete enough
     // to actually ship to.
@@ -110,7 +111,6 @@ export function CheckoutClient() {
       ["line1", "Required"],
       ["city", "Required"],
       ["state", "Required"],
-      ["postalCode", "Required"],
     ];
 
     for (const [key, message] of required) {
@@ -269,7 +269,7 @@ export function CheckoutClient() {
                     onChange={(event) => set("fullName", event.target.value)}
                     error={errors.fullName}
                     autoComplete="name"
-                    placeholder="Elena Lindqvist"
+                    placeholder="Amaka Okafor"
                   />
                   <Field
                     label="Email Address"
@@ -278,7 +278,7 @@ export function CheckoutClient() {
                     onChange={(event) => set("email", event.target.value)}
                     error={errors.email}
                     autoComplete="email"
-                    placeholder="elena.lindqvist@havenstudio.com"
+                    placeholder="amaka.okafor@example.com"
                   />
                 </div>
 
@@ -289,7 +289,7 @@ export function CheckoutClient() {
                   value={address.phone}
                   onChange={(event) => set("phone", event.target.value)}
                   autoComplete="tel"
-                  placeholder="+1 718 555 0142"
+                  placeholder="+234 803 123 4567"
                 />
 
                 <Field
@@ -298,7 +298,7 @@ export function CheckoutClient() {
                   onChange={(event) => set("line1", event.target.value)}
                   error={errors.line1}
                   autoComplete="address-line1"
-                  placeholder="482 Greene Ave"
+                  placeholder="12B Admiralty Way"
                 />
 
                 <Field
@@ -307,7 +307,7 @@ export function CheckoutClient() {
                   value={address.line2}
                   onChange={(event) => set("line2", event.target.value)}
                   autoComplete="address-line2"
-                  placeholder="Apt 3B"
+                  placeholder="Flat 3"
                 />
 
                 <div className="grid gap-5 sm:grid-cols-3">
@@ -317,23 +317,23 @@ export function CheckoutClient() {
                     onChange={(event) => set("city", event.target.value)}
                     error={errors.city}
                     autoComplete="address-level2"
-                    placeholder="Brooklyn"
+                    placeholder="Lekki"
                   />
-                  <Field
+                  <Select
                     label="State"
                     value={address.state}
                     onChange={(event) => set("state", event.target.value)}
                     error={errors.state}
-                    autoComplete="address-level1"
-                    placeholder="NY"
+                    options={NIGERIAN_STATES}
                   />
                   <Field
                     label="Postal Code"
+                    hint="Optional"
                     value={address.postalCode}
                     onChange={(event) => set("postalCode", event.target.value)}
                     error={errors.postalCode}
                     autoComplete="postal-code"
-                    placeholder="11216"
+                    placeholder="106104"
                   />
                 </div>
 

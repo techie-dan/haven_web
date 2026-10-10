@@ -14,6 +14,14 @@ interface AuthContextValue {
   loading: boolean;
   configured: boolean;
   signInWithGoogle: (next?: string) => Promise<{ error?: string }>;
+  signInWithEmail: (email: string, password: string) => Promise<{ error?: string }>;
+  signUpWithEmail: (
+    email: string,
+    password: string,
+    fullName: string,
+  ) => Promise<{ error?: string; needsVerification?: boolean }>;
+  verifyEmailCode: (email: string, code: string) => Promise<{ error?: string }>;
+  resendEmailCode: (email: string) => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
 }
 
@@ -128,6 +136,81 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setProfile(null);
   }, []);
 
+  const signInWithEmail = useCallback(async (email: string, password: string) => {
+    if (!isSupabaseConfigured) return { error: "Accounts are not configured." };
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    return error ? { error: error.message } : {};
+  }, []);
+
+  /**
+   * Creates the account through the app's own API so Mailgun sends the
+   * verification code. When Mailgun is unconfigured the account is confirmed
+   * immediately and we sign the customer in.
+   */
+  const signUpWithEmail = useCallback(
+    async (email: string, password: string, fullName: string) => {
+      try {
+        const response = await fetch("/api/auth/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password, fullName }),
+        });
+        const body = (await response.json().catch(() => null)) as
+          | { error?: string; needsVerification?: boolean }
+          | null;
+
+        if (!response.ok) {
+          return { error: body?.error ?? "We could not create your account." };
+        }
+
+        if (body?.needsVerification === false && isSupabaseConfigured) {
+          const supabase = createClient();
+          const { error } = await supabase.auth.signInWithPassword({ email, password });
+          if (error) return { error: error.message };
+          return { needsVerification: false };
+        }
+
+        return { needsVerification: true };
+      } catch {
+        return { error: "We could not reach the studio. Check your connection." };
+      }
+    },
+    [],
+  );
+
+  const verifyEmailCode = useCallback(async (email: string, code: string) => {
+    try {
+      const response = await fetch("/api/auth/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, code }),
+      });
+      const body = (await response.json().catch(() => null)) as
+        | { error?: string }
+        | null;
+      return response.ok ? {} : { error: body?.error ?? "Verification failed." };
+    } catch {
+      return { error: "We could not reach the studio. Check your connection." };
+    }
+  }, []);
+
+  const resendEmailCode = useCallback(async (email: string) => {
+    try {
+      const response = await fetch("/api/auth/resend", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const body = (await response.json().catch(() => null)) as
+        | { error?: string }
+        | null;
+      return response.ok ? {} : { error: body?.error ?? "Could not resend the code." };
+    } catch {
+      return { error: "We could not reach the studio. Check your connection." };
+    }
+  }, []);
+
   const value = useMemo<AuthContextValue>(
     () => ({
       user,
@@ -136,9 +219,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       loading,
       configured: isSupabaseConfigured,
       signInWithGoogle,
+      signInWithEmail,
+      signUpWithEmail,
+      verifyEmailCode,
+      resendEmailCode,
       signOut,
     }),
-    [user, session, profile, loading, signInWithGoogle, signOut],
+    [
+      user,
+      session,
+      profile,
+      loading,
+      signInWithGoogle,
+      signInWithEmail,
+      signUpWithEmail,
+      verifyEmailCode,
+      resendEmailCode,
+      signOut,
+    ],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

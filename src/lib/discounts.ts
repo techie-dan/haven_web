@@ -31,17 +31,17 @@ const DISCOUNTS: Discount[] = [
   },
   {
     code: "STUDIO25",
-    description: "$25 studio credit",
+    description: "₦5,000 studio credit",
     kind: "fixed",
-    value: 2500,
-    minSubtotalCents: 10000,
+    value: 500000,
+    minSubtotalCents: 2000000,
   },
   {
     code: "WELCOME",
     description: "First acquisition — 15% off",
     kind: "percent",
     value: 15,
-    minSubtotalCents: 20000,
+    minSubtotalCents: 5000000,
   },
 ];
 

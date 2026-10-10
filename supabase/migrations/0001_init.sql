@@ -38,7 +38,7 @@ create table if not exists public.profiles (
   city          text,
   state         text,
   postal_code   text,
-  country       text default 'United States',
+  country       text default 'Nigeria',
   created_at    timestamptz not null default now(),
   updated_at    timestamptz not null default now()
 );
@@ -137,7 +137,7 @@ create table if not exists public.orders (
   shipping_city     text not null,
   shipping_state    text not null,
   shipping_postal   text not null,
-  shipping_country  text not null default 'United States',
+  shipping_country  text not null default 'Nigeria',
   shipping_phone    text,
 
   delivery          delivery_method not null default 'standard_ground',
@@ -150,7 +150,7 @@ create table if not exists public.orders (
   tax_cents         integer not null default 0 check (tax_cents >= 0),
   total_cents       integer not null check (total_cents >= 0),
 
-  currency          text not null default 'USD',
+  currency          text not null default 'NGN',
 
   -- payment
   payment_provider  text,                          -- 'kora' | 'stripe' | 'paypal' | 'manual'

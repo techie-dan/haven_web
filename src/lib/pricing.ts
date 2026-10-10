@@ -14,21 +14,21 @@ import type {
  * very edge — never hold a currency amount as a float.
  */
 
-const USD = new Intl.NumberFormat("en-US", {
+const NGN = new Intl.NumberFormat("en-NG", {
   style: "currency",
-  currency: "USD",
+  currency: "NGN",
   minimumFractionDigits: 2,
 });
 
-/** "$358.00" */
+/** "₦358.00" */
 export function formatPrice(cents: number): string {
-  return USD.format(cents / 100);
+  return NGN.format(cents / 100);
 }
 
-/** "$358" when the amount is whole, "$88.50" otherwise — for dense card grids. */
+/** "₦358" when the amount is whole, "₦88.50" otherwise — for dense card grids. */
 export function formatPriceCompact(cents: number): string {
   return cents % 100 === 0
-    ? `$${(cents / 100).toLocaleString("en-US")}`
+    ? `₦${(cents / 100).toLocaleString("en-NG")}`
     : formatPrice(cents);
 }
 

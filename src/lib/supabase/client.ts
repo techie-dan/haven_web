@@ -1,6 +1,7 @@
 "use client";
 
 import { createBrowserClient } from "@supabase/ssr";
+import { supabaseUrl } from "@/lib/config";
 
 /**
  * Browser Supabase client.
@@ -9,7 +10,7 @@ import { createBrowserClient } from "@supabase/ssr";
  * it can reach is guarded by row-level security (see `supabase/migrations`).
  */
 export function createClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const url = supabaseUrl;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!url || !anonKey) {

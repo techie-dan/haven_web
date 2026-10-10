@@ -47,6 +47,9 @@ yarn-error.log*
 *.p12
 secrets/
 
+# supabase CLI local state (project ref, pooler URL — never commit)
+supabase/.temp/
+
 # vercel
 .vercel
 

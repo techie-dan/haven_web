@@ -10,8 +10,8 @@ export const shippingAddressSchema = z.object({
   line2: z.string().trim().max(200).optional().default(""),
   city: z.string().trim().min(1, "Required").max(120),
   state: z.string().trim().min(1, "Required").max(120),
-  postalCode: z.string().trim().min(1, "Required").max(24),
-  country: z.string().trim().min(1).max(120).default("United States"),
+  postalCode: z.string().trim().max(24).optional().default(""),
+  country: z.string().trim().min(1).max(120).default("Nigeria"),
 });
 
 export const orderItemSchema = z.object({

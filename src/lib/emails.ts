@@ -65,7 +65,7 @@ function shell(body: string, previewText: string): string {
           Questions about this order? Reply to this email — a person reads it.
         </p>
         <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:0.08em;color:#b3aca1;text-align:center;text-transform:uppercase;">
-          Haven Studio &amp; Living · 482 Greene Ave · Brooklyn, NY 11216
+          Haven Studio &amp; Living · 12B Admiralty Way, Lekki Phase 1 · Lagos, Nigeria
         </p>
       </td></tr>
 
@@ -361,6 +361,78 @@ export function studioNotificationEmail(data: OrderEmailData): {
   return {
     subject: `New order ${orderNumber} — ${formatPrice(totals.totalCents)} (${itemCount} pcs)`,
     html: shell(body, `New order ${orderNumber} for ${formatPrice(totals.totalCents)}`),
+    text,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Account verification
+// ---------------------------------------------------------------------------
+
+export interface VerificationEmailData {
+  fullName?: string;
+  code: string;
+  /** Minutes the code stays valid — shown to the customer. */
+  expiresInMinutes: number;
+}
+
+/**
+ * Sent by Mailgun when a customer signs up with an email address. Entering the
+ * code on the sign-up screen confirms the account; no link is used so the same
+ * email works on the website and in the app.
+ */
+export function verificationEmail(data: VerificationEmailData): {
+  subject: string;
+  html: string;
+  text: string;
+} {
+  const { fullName, code, expiresInMinutes } = data;
+  const greeting = fullName ? `Hi ${escapeHtml(fullName)},` : "Hello,";
+
+  const body = `
+    <tr><td style="padding:36px 40px 8px;">
+      <p style="margin:0 0 14px;font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:${MUTED};">
+        Confirm your account
+      </p>
+      <h1 style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;font-size:26px;font-weight:400;color:${INK};">
+        ${greeting}
+      </h1>
+      <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.7;color:#4a453e;">
+        Use the code below to finish creating your Haven Studio &amp; Living
+        account. Enter it on the sign-up screen within ${expiresInMinutes} minutes.
+      </p>
+    </td></tr>
+
+    <tr><td style="padding:28px 40px 4px;">
+      <div style="border:1px solid ${LINE};background:${CANVAS};padding:22px;text-align:center;">
+        <div style="font-family:'Courier New',monospace;font-size:34px;letter-spacing:0.32em;color:${INK};">
+          ${escapeHtml(code)}
+        </div>
+      </div>
+    </td></tr>
+
+    <tr><td style="padding:22px 40px 8px;">
+      <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.7;color:${MUTED};">
+        If you didn&rsquo;t ask to create a Haven account, you can safely ignore
+        this email — no account will be created without the code.
+      </p>
+    </td></tr>
+  `;
+
+  const text = [
+    "Confirm your Haven Studio & Living account",
+    "",
+    greeting,
+    "",
+    `Your verification code is: ${code}`,
+    `It expires in ${expiresInMinutes} minutes.`,
+    "",
+    "If you didn't ask to create a Haven account, ignore this email.",
+  ].join("\n");
+
+  return {
+    subject: `Your Haven verification code: ${code}`,
+    html: shell(body, `Your Haven verification code is ${code}`),
     text,
   };
 }

@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { supabaseUrl } from "@/lib/config";
 
 /**
  * Session refresh + route guard.
@@ -15,7 +16,7 @@ import { NextResponse, type NextRequest } from "next/server";
  * storefront still runs before the backend is wired up.
  */
 export default async function proxy(request: NextRequest) {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const url = supabaseUrl;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!url || !anonKey) return NextResponse.next();

@@ -1,18 +1,20 @@
 import { products as fallbackProducts, categories } from "@/lib/data";
 import type { Product } from "@/lib/types";
 import { getSupabaseClient } from "@/lib/supabase";
+import { supabaseUrl } from "@/lib/config";
 
 /**
  * Catalogue access.
  *
  * Falls back to the seeded list so the storefront still renders before Supabase
- * is configured. Once your project is live, set `NEXT_PUBLIC_USE_SUPABASE_CATALOG`
- * to `true` to query Postgres directly for the same product shape.
+ * is configured. The live database remains opt-in: set
+ * `NEXT_PUBLIC_USE_SUPABASE_CATALOG=true` only when the project URL and keys are
+ * known-good and intentionally being used.
  */
 
 const USE_DATABASE =
-  process.env.NEXT_PUBLIC_USE_SUPABASE_CATALOG !== "false" &&
-  Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+  process.env.NEXT_PUBLIC_USE_SUPABASE_CATALOG === "true" &&
+  Boolean(supabaseUrl && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 
 /** Shape of a row in `public.products`, before mapping to the domain type. */
 interface ProductRow {

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import type { EmailOtpType } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -19,6 +20,8 @@ export const runtime = "nodejs";
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
+  const tokenHash = searchParams.get("token_hash");
+  const type = searchParams.get("type") as EmailOtpType | null;
   const next = searchParams.get("next") ?? "/account";
   const errorDescription = searchParams.get("error_description");
 
@@ -30,14 +33,21 @@ export async function GET(request: Request) {
   }
 
   if (!code) {
-    return NextResponse.redirect(
-      `${origin}/login?error=${encodeURIComponent("Missing authorization code.")}`,
-    );
+    // Email confirmation links (from Supabase Auth, delivered by Mailgun SMTP
+    // when configured) arrive as `token_hash` + `type` rather than an OAuth
+    // `code`.
+    if (!tokenHash || !type) {
+      return NextResponse.redirect(
+        `${origin}/login?error=${encodeURIComponent("Missing authorization code.")}`,
+      );
+    }
   }
 
   try {
     const supabase = await createClient();
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    const { error } = tokenHash && type
+      ? await supabase.auth.verifyOtp({ type, token_hash: tokenHash })
+      : await supabase.auth.exchangeCodeForSession(code!);
 
     if (error) throw error;
   } catch (error) {
@@ -48,9 +58,15 @@ export async function GET(request: Request) {
     );
   }
 
-  // Only allow same-site relative redirects — an attacker-supplied absolute URL
-  // here would turn sign-in into an open redirect.
-  const safeNext = next.startsWith("/") && !next.startsWith("//") ? next : "/account";
+  // Allow mobile deep links (havenmobile:// or exp://) or same-site relative paths.
+  const isMobileDeepLink =
+    next.startsWith("havenmobile://") || next.startsWith("exp://");
+  const safeNext = isMobileDeepLink
+    ? next
+    : next.startsWith("/") && !next.startsWith("//")
+      ? next
+      : "/account";
 
-  return NextResponse.redirect(`${origin}${safeNext}`);
+  return NextResponse.redirect(isMobileDeepLink ? safeNext : `${origin}${safeNext}`);
 }
+
